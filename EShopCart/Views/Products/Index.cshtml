@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">@ViewBag.CategorySlugH1</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            @*<button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>*@
+
+            <ol class="breadcrumb float-sm-right fs-xs text-gray-400">
+                <li class="breadcrumb-item">
+                    <a class="text-gray-400" href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="text-gray-400" href="#">Produtos</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    @ViewBag.CategorySlugH1
+                </li>
+            </ol>
+
+        </div>
+        @*<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        This week
+        </button>*@
+    </div>
+</div>
+
+
+@*<nav class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Breadcrumb -->
+                <ol class="breadcrumb mb-0 fs-xs text-gray-400">
+                    <li class="breadcrumb-item">
+                        <a class="text-gray-400" href="index.html">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="text-gray-400" href="shop.html">Women's Shoes</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Leather Sneakers
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+</nav>*@
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control btn-sm" id="descricao" placeholder="Buscar produtos" arial-label="Search for products" arial-describedby="button-addon2" />
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary btn-sm" type="button" id="buscar">
+            <i class="fa fa-search"></i> Buscar
+        </button>
+    </div>
+</div>
+
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <img class="card-img-top img-fluid" data-src="/media/Products/@item.Image"
+                 alt="Thumbnail [100%x225]"
+                 src="/media/Products/@item.Image" data-holder-rendered="true" style="height: 325px; width: 100%; display: block;">@*
+            <img class="card-img-top img-fluid rounded mx-auto d-block" data-src="/media/Products/@item.Image" alt="Thumbnail [100%x225]"
+            src="/media/Products/@item.Image" data-holder-rendered="true" style="height: 162px; width: 50%; display: block;">*@
+
+
+                <div class="card-body">
+                    <p class="card-text"> @item.Name</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-primary btn-sm" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">Adicionar</a>
+
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Detalhes</button>
+                        </div>
+                        <small class="text-muted">R$ @item.Price.ToString("C")</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <pagination page-count="@ViewBag.TotalPages"
+                    page-target="/products/@ViewBag.CategorySlug"
+                    page-number="@ViewBag.PageNumber"
+                    page-range="@ViewBag.PageRange">
+            </pagination>
+        </div>
+    }
+</div>
+
+
+@*<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <img src="/media/Products/@item.Image" class="img-fluid" alt=""  />
+            <h4>@item.Name</h4>
+            <div>
+                @Html.Raw(item.Description)
+            </div>
+            <p>
+                @item.Price.ToString("C2")
+            </p>
+            <p>
+                <a class="btn btn-primary" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">Add to cart</a>
+            </p>
+        </div>
+    }
+
+
+
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <pagination page-count="@ViewBag.TotalPages"
+                    page-target="/products/@ViewBag.CategorySlug"
+                    page-number="@ViewBag.PageNumber"
+                    page-range="@ViewBag.PageRange">
+            </pagination>
+        </div>
+    }
+
+</div>*@

@@ -1,0 +1,141 @@
+﻿@model CartViewModel
+
+@{
+    ViewData["Title"] = "Cart Overview";
+
+    Layout = "~/Views/Shared/_Layout_Cart.cshtml";
+}
+
+
+
+@if (Model.CartItems.Count > 0)
+{
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Visão geral do carrinho.</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            @*<a asp-action="Create" class="btn btn-sm btn-outline-secondary">Finalizar a compra</a>
+        <a class="btn btn-danger" asp-action="Clear">Limpar carrinho</a>*@
+            <a class="btn btn-sm btn-outline-secondary" asp-action="Clear">Limpar carrinho</a>
+            @*<a class="btn btn-sm btn-outline-secondary" asp-action="Checkout">Checkout</a>*@
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <caption><strong class="text-muted">Total Geral:</strong><b> @Model.GrandTotal.ToString("C2")</b></caption>
+        <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Foto</th>
+            <th>Quantidade</th>
+            <th></th>
+            <th>Preço</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>
+                    <img src="/media/products/@item.Image" width="75" alt="" />
+                </td>
+                <td>@item.Quantity</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Add" asp-route-id="@item.ProductId">+</a>
+                    <a class="btn btn-info btn-sm" asp-action="Decrease" asp-route-id="@item.ProductId">-</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Remove" asp-route-id="@item.ProductId">Remover</a>
+                </td>
+                <td>@item.Price.ToString("C2")</td>
+                <td>@Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.Price).ToString("C2")</td>
+            </tr>
+        }
+        <tr>
+            <td class="text-right text-black" colspan="4"><strong class="text-muted">Total Geral:</strong><b> @Model.GrandTotal.ToString("C2")</b></td>
+        </tr>
+        <tr>
+            <td class="text-right" colspan="4"></td>
+        </tr>
+       @* <tr>
+            <td class="text-right" colspan="4">
+                <a class="btn btn-danger" asp-action="Clear">Limpar carrinho</a>
+                <a class="btn btn-info" asp-action="Checkout">Checkout</a>
+                <a class="btn btn-primary" href="#">Checkout</a>
+            </td>
+        </tr>*@
+        </tbody>
+    </table>
+
+
+}
+else
+{
+    @*<h3 class="display-4 text-center">Seu carrinho está vazio.</h3>*@
+
+    <div class="jumbotron">
+        <div class="container text-center text-lg-left">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="display-4">
+                        Seu carrinho está 
+                        <span class="highlight-word">vazio.</span>
+                    </h1>
+                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <span class="text-center d-inline-block">
+                        <a class="btn btn-primary btn-lg w-100" href="#" role="button">Try it free</a>
+                        <p class="text-muted">No credit card required</p>
+                    </span>
+                </div>
+                <div class="col-lg-4 align-items-center d-flex">
+                    <img src="https://dummyimage.com/1200x800/949494/fff.png" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+
+<br />
+
+@*<div class="card text-white bg-secondary my-5 py-4 text-center">
+    <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
+</div>
+
+
+<div class="row gx-4 gx-lg-5">
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Card One</h2>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+            </div>
+            <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Card Two</h2>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
+            </div>
+            <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Card Three</h2>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+            </div>
+            <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+        </div>
+    </div>
+</div>*@
+
+
+
+
+
+
+
